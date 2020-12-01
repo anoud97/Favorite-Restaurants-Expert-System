@@ -1,0 +1,179 @@
+main:-
+write('welcome'),
+nl,
+write('We will help you choose your favorite restaurant'),
+nl,
+write('1: Do you want to start'),
+nl,
+write('2: End'),
+nl,
+read(R),
+( R = 1 ,action_high() ; true  ),
+(R = 2 ,action_high2(); true).
+action_high2() :-menu2. 
+action_high() :-menu. 
+menu:-
+hypothesis(Food),
+write('it seems that you like: '),
+write(Food),
+write('  food'),
+nl,
+write('Have a delicious meal '),
+undo.
+hypothesis(french) :- french, !.
+hypothesis(italian) :- italian, !.
+hypothesis(japanese) :- japanese, !.
+hypothesis(british) :- british, !.
+hypothesis(turkish) :- turkish, !.
+hypothesis(indian) :- indian, !.
+hypothesis(thailand) :- thailand, !.
+hypothesis(korean) :- korean, !.
+hypothesis(chinese) :- chinese, !.
+hypothesis(lebanon) :- lebanon, !.
+hypothesis(unknown).
+lebanon :-
+verify(shish_Taouk),
+verify(kibbe_Nayeh),
+verify(manakeesh ),
+write('Suitable restaurants:'),
+nl,
+write('1: Al Safadi Restaurant'),
+nl,
+write('2: Wafi Gourmet'),
+nl,
+write('3:Ayamna'),
+nl.
+chinese :-
+verify(hotpot),
+verify(dumplings),
+verify(ma_Po_Tofu ),
+write('Suitable restaurants:'),
+nl,
+write('1: Long Yin'),
+nl,
+write('2: Maiden Shanghai'),
+nl,
+write('3:Shanghai Chic'),
+nl.
+korean :-
+verify(kimchi),
+verify(bibimbap),
+verify(bugogi ),
+write('Suitable restaurants:'),
+nl,
+write('1: Mannaland Korean Restaurant'),
+nl,
+write('2: Hyu Korean Restaurant'),
+nl,
+write('3: Seoul Garden Restaurant'),
+nl.
+thailand :-
+verify(por_Pia_Tord),
+verify(panaeng),
+verify(bad_Tai ),
+write('Suitable restaurants:'),
+nl,
+write('1: Yum!‬'),
+nl,
+write('2: Miss Tess'),
+nl,
+write('3: Tong Thai'),
+nl.
+indian :-
+verify(alu_Gobi),
+verify(barfi),
+verify(butter_Chicken ),
+write('Suitable restaurants:'),
+nl,
+write('1: Khyber‬'),
+nl,
+write('2: Purani Dilli Dubai'),
+nl,
+write('3: Indya by Vineet'),
+nl.
+turkish :-
+verify(kofta),
+verify(manti),
+verify(lahmacun),
+write('Suitable restaurants:'),
+nl,
+write('1: Bosporus'),
+nl,
+write('2: Mado'),
+nl,
+write('3: Turkish Village'),
+nl.
+french :-
+verify(coq_au_vin ),
+verify(flamiche),
+verify(confit_de_canard),
+write('Suitable restaurants:'),
+nl,
+write('1: St Tropez Bistro'),
+nl,
+write('2: La Serre'),
+nl,
+write('3: Entrecôte Café de Paris'),
+nl.
+italian :-
+verify(pizza),
+verify(arancini),
+verify(lasagne),
+verify(torrone),
+write('Suitable restaurants:'),
+nl,
+write('1:Massimo.s Italian Restaurant'),
+nl,
+write('2: Certo Italian Restaurant'),
+nl,
+write('3: Robertos'),
+nl.
+japanese :-
+verify(sushi),
+verify(onigiri),
+verify(sashimi),
+verify(tempura),
+write('Suitable restaurants:'),
+nl,
+write('1: Minato'),
+nl,
+write('2: Kiku'),
+nl,
+write('3: KATSUYA'),
+nl.
+british :-
+verify(bangers_and_mash),
+verify(roast_dinner),
+verify(fish_and_Chips),
+write('Suitable restaurants:'),
+nl,
+write('1: The English Restaurant'),
+nl,
+write('2: Indigo By Vineet Restaurant'),
+nl,
+write('3: Sea World'),
+nl.
+ask(Question) :-
+write('Do you like :'),
+write(Question),
+write('? '),
+read(Response),
+nl,
+( (Response == yes ; Response == y)
+->
+assert(yes(Question)) ;
+assert(no(Question)), fail).
+:- dynamic yes/1,no/1.
+verify(S) :-
+(yes(S)
+->
+true ;
+(no(S)
+->
+fail ;
+ask(S))).
+undo :- retract(yes(_)),fail.
+undo :- retract(no(_)),fail.
+undo.
+menu2:-
+write('Thank you').
